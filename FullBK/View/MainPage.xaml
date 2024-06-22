@@ -31,12 +31,7 @@
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Fill" />
-
-            <customs:ConnectivityView
-                HorizontalOptions="CenterAndExpand"
-                IconSize="64"
-                LabelFontSize="16"
-                />
+            <customs:ConnectivityView HorizontalOptions="CenterAndExpand"/>
         </VerticalStackLayout>
     </ScrollView>
 

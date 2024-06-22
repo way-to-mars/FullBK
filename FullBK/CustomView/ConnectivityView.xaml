@@ -2,11 +2,8 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FullBK.CustomView.ConnectivityView"
-             xmlns:viewModel="clr-namespace:FullBK.CustomView.ViewModel"
-             x:DataType="viewModel:ConnectivityViewModel">
-    <ContentView.BindingContext>
-        <viewModel:ConnectivityViewModel/>
-    </ContentView.BindingContext>
+>
+
    
     <Grid ColumnDefinitions="Auto,*">
         <Image x:Name="Icon"
@@ -16,7 +13,7 @@
                VerticalOptions="Center"
                SemanticProperties.Description="Internet connectivity image"/>
         <Label x:Name="Description"
-               Text="{Binding ConnectivityName}"
+               Text="..."
                FontFamily="BetterVCR"
                FontSize="16"
                VerticalOptions="Center"

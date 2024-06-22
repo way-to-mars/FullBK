@@ -59,6 +59,7 @@
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\Better-VCR.ttf" />
 	  <None Remove="Resources\Fonts\empty_prize.png" />
+	  <None Remove="Resources\Images\error_red.png" />
 	  <None Remove="Resources\Images\network_signal.svg" />
 	  <None Remove="Resources\Images\network_signal_dark.svg" />
 	</ItemGroup>
@@ -76,6 +77,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="CustomView\ConnectivityView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\GroupingCollectionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
