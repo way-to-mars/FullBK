@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using FullBK.View;
+using FullBK.ViewModel;
+using Microsoft.Extensions.Logging;
 
 namespace FullBK;
 
@@ -22,6 +24,11 @@ public static class MauiProgram
 
         // Used in CustomView/ConnectivityView
         builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
+        builder.Services.AddSingleton<GroupingCollectionViewModel>();
+        builder.Services.AddSingleton<GroupingCollectionView>();
+
+        builder.Services.AddSingleton<RewardsViewModel>();
+        builder.Services.AddSingleton<RewardsPage>();
 
         return builder.Build();
     }

@@ -1,39 +1,61 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:FullBK.ViewModel"
+             xmlns:models="clr-namespace:FullBK.Model"
+             x:DataType="viewModel:GroupingCollectionViewModel"
              x:Class="FullBK.View.GroupingCollectionView"
+             MinimumWidthRequest="500"
              Title="GroupingCollectionView">
     <CollectionView
-        ItemsSource="{Binding Rewards}"
-        IsGrouped="True">
+        ItemsSource="{Binding GroupedRewards}"
+        IsGrouped="True"
+        SelectionMode="None"
+        ItemSizingStrategy="MeasureFirstItem"
+        HorizontalScrollBarVisibility="Default"        
+        >
+
+        <CollectionView.ItemsLayout>
+            <GridItemsLayout Orientation="Vertical" Span="2" /> 
+        </CollectionView.ItemsLayout>
         
         <CollectionView.GroupHeaderTemplate>
-            <DataTemplate>
+            <DataTemplate x:DataType="models:RewardGroup">
                 <Label FontSize="18"
                        FontAttributes="Bold"
-                       BackgroundColor="Brown"
+                       BackgroundColor="LightSlateGray"
                        HorizontalTextAlignment="Center"
                        Text="{Binding GroupName, StringFormat='All the rewards with the {0} state'}"/>
             </DataTemplate>
         </CollectionView.GroupHeaderTemplate>
         
         <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <Border Stroke="Gray" BackgroundColor="#e1e1e1">
+            <DataTemplate x:DataType="models:RewardModel">
+                <Border Stroke="Gray" BackgroundColor="#e1e1e1" WidthRequest="200" MinimumWidthRequest="200" StrokeThickness="3" HorizontalOptions="Start">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:GroupingCollectionViewModel}}, Path=ItemTappedCommand}"
+                                              CommandParameter="{Binding .}"/>
+                    </Border.GestureRecognizers>
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="20" />
                     </Border.StrokeShape>
                     <StackLayout Margin="20">
                         <Label HorizontalTextAlignment="Center" FontSize="24"
                                Text="{Binding Id, StringFormat='Id: {0}'}" />
-                        <BoxView HeightRequest="2" Color="DarkGray" Margin="10" />
+                        <BoxView HeightRequest="3" Color="DarkGray" Margin="10" />
                         <Label FontSize="18"
+                               HorizontalOptions="Center"
                                Text="{Binding RewardState, StringFormat='State: {0}'}" />
                     </StackLayout>
                 </Border>
             </DataTemplate>
-        </CollectionView.ItemTemplate>       
-        
+        </CollectionView.ItemTemplate>
+
+        <CollectionView.EmptyView>
+            <StackLayout Padding="100">
+                <Label Text="No data yet"/>
+            </StackLayout>
+        </CollectionView.EmptyView>
         
     </CollectionView>
 </ContentPage>

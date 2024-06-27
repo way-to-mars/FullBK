@@ -1,37 +1,35 @@
 using FullBK.Model;
 using FullBK.ViewModel;
+using System.Diagnostics;
 
 namespace FullBK.View;
 
 public partial class GroupingCollectionView : ContentPage
 {
-    // ObservableCollection should be used
-    public List<RewardGroup> Rewards { get; set; } = new List<RewardGroup>();
+    // Expected width of a single ItemView including paddings
+    private readonly double itemRoomWidth = 220;
+    int columnsCount = 2;
 
-    public GroupingCollectionView()
+    public GroupingCollectionView(GroupingCollectionViewModel viewModel)
     {
         InitializeComponent();
-        PopulateList(Rewards);
-        BindingContext = this;
+        BindingContext = viewModel;
     }
 
-    private void PopulateList(List<RewardGroup> list)
+    protected override void OnSizeAllocated(double width, double height)
     {
-        list.Add(new RewardGroup(
-            "New",
-            Enumerable.Range(1, 3).Select(i => new Reward
-            {
-                Id = i,
-                RewardState = Reward.RewardStates.NEW
-            }).ToList()
-        ));
-        list.Add(new RewardGroup(
-            "Done",
-            Enumerable.Range(11, 5).Select(i => new Reward
-            {
-                Id = i,
-                RewardState = Reward.RewardStates.FINISHED
-            }).ToList()
-        ));
+        int count = (int)(width / itemRoomWidth);
+        if (count < 2) count = 2;
+        
+        if (count != columnsCount)
+        {
+            columnsCount = count;
+
+            var cv = (CollectionView)Content;
+            if (cv!=null) ((GridItemsLayout)cv.ItemsLayout).Span = count;
+        }
+
+        base.OnSizeAllocated(width, height);
     }
+
 }

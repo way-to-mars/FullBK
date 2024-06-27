@@ -59,9 +59,14 @@
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\Better-VCR.ttf" />
 	  <None Remove="Resources\Fonts\empty_prize.png" />
+	  <None Remove="Resources\Images\alien.svg" />
+	  <None Remove="Resources\Images\circle_arrow_down.svg" />
+	  <None Remove="Resources\Images\circle_arrow_up.svg" />
 	  <None Remove="Resources\Images\error_red.png" />
 	  <None Remove="Resources\Images\network_signal.svg" />
 	  <None Remove="Resources\Images\network_signal_dark.svg" />
+	  <None Remove="Resources\Images\radar_black.svg" />
+	  <None Remove="Resources\Images\radar_white.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -70,8 +75,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.60" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.60" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.61" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.61" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 	</ItemGroup>
 
@@ -80,6 +85,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\GroupingCollectionView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\RewardsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

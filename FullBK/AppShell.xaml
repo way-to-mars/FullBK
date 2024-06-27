@@ -27,4 +27,11 @@
         Route="MainPage" />
     </FlyoutItem>
 
+    <FlyoutItem Title="Rewards View" Icon="error_red.png">
+        <ShellContent
+        Title="Список наград"
+        ContentTemplate="{DataTemplate view:RewardsPage}"
+        Route="MainPage" />
+    </FlyoutItem>
+
 </Shell>

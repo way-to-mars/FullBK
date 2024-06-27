@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
+             x:Class="FullBK.View.RewardsPage"
+             
+             xmlns:viewmodel="clr-namespace:FullBK.ViewModel"
+             x:DataType="viewmodel:RewardsViewModel"
+             
+             Title="RewardsPage">
+
+    <Grid ColumnDefinitions="*" RowDefinitions="*">
+        
+        <!-- Base layout -->
+        <ScrollView ZIndex="1">
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Refresh" FontSize="64" Padding="32">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RefreshCommand}"/>
+                    </Label.GestureRecognizers>                    
+                </Label>
+
+                <Button Text="Test" FontSize="64" Padding="32" Clicked="Button_Clicked" WidthRequest="200"/>
+                <Button Text="Test" FontSize="64" Padding="32" Clicked="Button_Clicked" WidthRequest="200"/>
+                <Button Text="Test" FontSize="64" Padding="32" Clicked="Button_Clicked" WidthRequest="200"/>
+                <Button Text="Test" FontSize="64" Padding="32" Clicked="Button_Clicked" WidthRequest="200"/>
+                <Button Text="Test" FontSize="64" Padding="32" Clicked="Button_Clicked" WidthRequest="200"/>
+                <Button Text="Test" FontSize="64" Padding="32" Clicked="Button_Clicked" WidthRequest="200"/>
+                <Button Text="Test" FontSize="64" Padding="32" Clicked="Button_Clicked" WidthRequest="200"/>
+                <Button Text="Test" FontSize="64" Padding="32" Clicked="Button_Clicked" WidthRequest="200"/>                
+                
+            </VerticalStackLayout>
+        </ScrollView>
+        
+        <!-- Refreshing indicator -->
+        <Grid ColumnDefinitions="*" RowDefinitions="*"
+                             x:Name="RefreshIt"
+                             IsVisible="{Binding IsRefreshing}"
+                             ZIndex="100"
+                             VerticalOptions="FillAndExpand"
+                             HorizontalOptions="FillAndExpand"
+                             BackgroundColor="{AppThemeBinding Light=#CFFF, Dark=#C000}">
+            <HorizontalStackLayout
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"
+                   Spacing="40">
+                <Image
+                    x:Name="RadarImage"
+                    Source="{AppThemeBinding Light=radar_black.png, Dark=radar_white.png}"
+                    Aspect="AspectFit"
+                    WidthRequest="72"
+                    VerticalOptions="Center"
+                    SemanticProperties.Description="Internet connectivity image"/>
+                <Label Text="Идёт обновление..."
+                   FontSize="54">
+                    <Label.Shadow>
+                        <Shadow Brush="{AppThemeBinding Light=#000, Dark=#FFF}"
+                            Offset="0,0"
+                            Radius="10"
+                            Opacity="0.25" />
+                    </Label.Shadow>
+                </Label>
+            </HorizontalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>
