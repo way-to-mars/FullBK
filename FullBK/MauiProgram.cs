@@ -1,4 +1,5 @@
-﻿using FullBK.View;
+﻿using FullBK.CustomView;
+using FullBK.View;
 using FullBK.ViewModel;
 using Microsoft.Extensions.Logging;
 
@@ -29,6 +30,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<RewardsViewModel>();
         builder.Services.AddSingleton<RewardsPage>();
+
 
         return builder.Build();
     }

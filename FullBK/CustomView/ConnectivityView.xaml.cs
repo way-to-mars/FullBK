@@ -17,17 +17,22 @@ public partial class ConnectivityView : ContentView
 
     public ConnectivityView()
     {
+        var logger = (string str) => { Debug.WriteLine($"[ConnectivityView]({this.GetHashCode()}) {str}"); };
+
         InitializeComponent();
 
-        LogEvents(this, (str) => Debug.WriteLine($"[ConnectivityView]({this.GetHashCode()}) {str}"));
+        LogEvents(this, logger);
 
         this.Loaded += (sender, args) =>
         {
             //await Task.Delay(1000);    // Additional delay. Waiting for MAUI and Connectivity to be finally initialized
+            logger("Lazy Init asked");
             _ = SetupConnectivityAsync();
-            Debug.WriteLine("Lazy Init");
+            logger("Lazy Init finished");
         };
     }
+
+
 
     private static void LogEvents(ContentView view, Action<string> logger)
     {

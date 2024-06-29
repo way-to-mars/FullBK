@@ -6,12 +6,27 @@
     xmlns:view="clr-namespace:FullBK.View"
     xmlns:customs="clr-namespace:FullBK.CustomView"
     Shell.FlyoutBehavior="Flyout"
-    Shell.BackgroundColor="DarkCyan"
     >
 
+    <!-- Adds Internet status to the toolbar
     <Shell.TitleView>
         <customs:ConnectivityView HorizontalOptions="End" LabelFontSize="20" IconSize="48"/>
     </Shell.TitleView>
+    -->
+
+    <FlyoutItem Title="Rewards View" Icon="error_red.png">
+        <ShellContent
+        Title="Список наград"
+        ContentTemplate="{DataTemplate view:RewardsPage}"
+        Route="RewardsPage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Groping Collection View" Icon="error_red.png">
+        <ShellContent
+        Title="Список с группировкой элементов"
+        ContentTemplate="{DataTemplate view:GroupingCollectionView}"
+        Route="GroupingPage" />
+    </FlyoutItem>
 
     <FlyoutItem Title="MainPage" Icon="error_red.png">
         <ShellContent
@@ -20,18 +35,11 @@
         Route="MainPage" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Groping Collection View" Icon="error_red.png">
+    <FlyoutItem Title="Holy grail" Icon="error_red.png">
         <ShellContent
-        Title="Список с группировкой элементов"
-        ContentTemplate="{DataTemplate view:GroupingCollectionView}"
-        Route="MainPage" />
-    </FlyoutItem>
-
-    <FlyoutItem Title="Rewards View" Icon="error_red.png">
-        <ShellContent
-        Title="Список наград"
-        ContentTemplate="{DataTemplate view:RewardsPage}"
-        Route="MainPage" />
+        Title="Святой грааль"
+        ContentTemplate="{DataTemplate view:HolyGrail}"
+        Route="HolyGrailPage" />
     </FlyoutItem>
 
 </Shell>

@@ -57,6 +57,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="CustomView\Images\arrow_down_black.svg" />
+	  <None Remove="CustomView\Images\arrow_down_white.svg" />
+	  <None Remove="CustomView\Images\arrow_left_black.svg" />
+	  <None Remove="CustomView\Images\arrow_left_white.svg" />
+	  <None Remove="CustomView\Images\arrow_right_black.svg" />
+	  <None Remove="CustomView\Images\arrow_right_white.svg" />
 	  <None Remove="Resources\Fonts\Better-VCR.ttf" />
 	  <None Remove="Resources\Fonts\empty_prize.png" />
 	  <None Remove="Resources\Images\alien.svg" />
@@ -74,6 +80,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiImage Include="CustomView\Images\arrow_down_black.svg" />
+	  <MauiImage Include="CustomView\Images\arrow_down_white.svg" />
+	  <MauiImage Include="CustomView\Images\arrow_left_black.svg" />
+	  <MauiImage Include="CustomView\Images\arrow_left_white.svg" />
+	  <MauiImage Include="CustomView\Images\arrow_right_black.svg" />
+	  <MauiImage Include="CustomView\Images\arrow_right_white.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.61" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.61" />
@@ -84,7 +99,13 @@
 	  <MauiXaml Update="CustomView\ConnectivityView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="CustomView\ExpandedWrapStack.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\GroupingCollectionView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\HolyGrail.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\RewardsPage.xaml">

@@ -3,64 +3,112 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
              x:Class="FullBK.View.RewardsPage"
+             xmlns:customs="clr-namespace:FullBK.CustomView"
              
              xmlns:viewmodel="clr-namespace:FullBK.ViewModel"
              x:DataType="viewmodel:RewardsViewModel"
              
              Title="RewardsPage">
 
-    <Grid ColumnDefinitions="*" RowDefinitions="*">
-        
-        <!-- Base layout -->
-        <ScrollView ZIndex="1">
-            <VerticalStackLayout Spacing="10">
-                <Label Text="Refresh" FontSize="64" Padding="32">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding RefreshCommand}"/>
-                    </Label.GestureRecognizers>                    
-                </Label>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="GradColLight1">#C0CCCCCC</Color>
+            <Color x:Key="GradColLight2">#C0FFFFFF</Color>
+            <Color x:Key="GradColDark1">#C0303030</Color>
+            <Color x:Key="GradColDark2">#C0000000</Color>
+            <Color x:Key="ToolbarBgLight">#EEEEEE</Color>
+            <Color x:Key="ToolbarBgDark">#303030</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-                <Button Text="Test" FontSize="64" Padding="32" Clicked="Button_Clicked" WidthRequest="200"/>
-                <Button Text="Test" FontSize="64" Padding="32" Clicked="Button_Clicked" WidthRequest="200"/>
-                <Button Text="Test" FontSize="64" Padding="32" Clicked="Button_Clicked" WidthRequest="200"/>
-                <Button Text="Test" FontSize="64" Padding="32" Clicked="Button_Clicked" WidthRequest="200"/>
-                <Button Text="Test" FontSize="64" Padding="32" Clicked="Button_Clicked" WidthRequest="200"/>
-                <Button Text="Test" FontSize="64" Padding="32" Clicked="Button_Clicked" WidthRequest="200"/>
-                <Button Text="Test" FontSize="64" Padding="32" Clicked="Button_Clicked" WidthRequest="200"/>
-                <Button Text="Test" FontSize="64" Padding="32" Clicked="Button_Clicked" WidthRequest="200"/>                
-                
-            </VerticalStackLayout>
-        </ScrollView>
-        
-        <!-- Refreshing indicator -->
-        <Grid ColumnDefinitions="*" RowDefinitions="*"
-                             x:Name="RefreshIt"
-                             IsVisible="{Binding IsRefreshing}"
-                             ZIndex="100"
-                             VerticalOptions="FillAndExpand"
-                             HorizontalOptions="FillAndExpand"
-                             BackgroundColor="{AppThemeBinding Light=#CFFF, Dark=#C000}">
-            <HorizontalStackLayout
-                   HorizontalOptions="CenterAndExpand"
-                   VerticalOptions="CenterAndExpand"
-                   Spacing="40">
-                <Image
-                    x:Name="RadarImage"
-                    Source="{AppThemeBinding Light=radar_black.png, Dark=radar_white.png}"
-                    Aspect="AspectFit"
-                    WidthRequest="72"
-                    VerticalOptions="Center"
-                    SemanticProperties.Description="Internet connectivity image"/>
-                <Label Text="Идёт обновление..."
-                   FontSize="54">
-                    <Label.Shadow>
-                        <Shadow Brush="{AppThemeBinding Light=#000, Dark=#FFF}"
-                            Offset="0,0"
-                            Radius="10"
-                            Opacity="0.25" />
-                    </Label.Shadow>
-                </Label>
-            </HorizontalStackLayout>
+    <!-- Toolbar -->
+    <Shell.TitleView>
+        <Grid RowDefinitions="*"
+              ColumnDefinitions="Auto,*"
+              VerticalOptions="FillAndExpand"
+              BackgroundColor="{AppThemeBinding Light={StaticResource ToolbarBgLight}, Dark={StaticResource ToolbarBgDark}}">
+            <Label Text="A title" VerticalOptions="CenterAndExpand" Padding="15,0" FontSize="20" FontFamily="Better-VCR" FontAttributes="Bold"/>
+            <ScrollView Orientation="Horizontal" Grid.Column="1" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" Padding="15,0">
+                <HorizontalStackLayout Spacing="10">
+                    <Button Text="Update"
+                            FontSize="18"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource GradColLight2}, Dark={StaticResource GradColDark2}}"
+                            TextColor="{AppThemeBinding Dark={StaticResource GradColLight2}, Light={StaticResource GradColDark2}}">
+                        <Button.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding RefreshCommand}"/>
+                        </Button.GestureRecognizers>
+                    </Button>
+                    <customs:ConnectivityView/>
+                </HorizontalStackLayout>
+            </ScrollView>
         </Grid>
-    </Grid>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <Grid ColumnDefinitions="*" RowDefinitions="*">
+        
+            <!-- Base layout -->
+            <ScrollView ZIndex="1">
+                <VerticalStackLayout>
+
+                    <customs:ExpandedWrapStack Title="Новые"/>
+
+                    <BoxView HeightRequest="3" Color="DarkGray" Margin="10,20" />
+
+                    <customs:ExpandedWrapStack Title="В обработке"/>
+
+                    <BoxView HeightRequest="3" Color="DarkGray" Margin="10,20" />
+
+                    <customs:ExpandedWrapStack Title="Завершённые"/>
+
+
+                </VerticalStackLayout>
+            </ScrollView>
+        
+            <!-- Refreshing indicator -->
+            <Grid ColumnDefinitions="*" RowDefinitions="*"
+                                 x:Name="RefreshIt"
+                                 IsVisible="{Binding IsRefreshing}"
+                                 ZIndex="100"
+                                 VerticalOptions="FillAndExpand"
+                                 HorizontalOptions="FillAndExpand"
+                                 >
+                <Grid.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" >
+                        <GradientStop Color="{AppThemeBinding Light={StaticResource GradColLight2}, Dark={StaticResource GradColDark2}}"
+                          Offset="0.0" />
+                        <GradientStop Color="{AppThemeBinding Light={StaticResource GradColLight1}, Dark={StaticResource GradColDark1}}"
+                          Offset="0.25" />
+                        <GradientStop Color="{AppThemeBinding Light={StaticResource GradColLight2}, Dark={StaticResource GradColDark2}}"
+                          Offset="0.5" />
+                        <GradientStop Color="{AppThemeBinding Light={StaticResource GradColLight1}, Dark={StaticResource GradColDark1}}"
+                          Offset="0.75" />
+                        <GradientStop Color="{AppThemeBinding Light={StaticResource GradColLight2}, Dark={StaticResource GradColDark2}}"
+                          Offset="1.0" />
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <HorizontalStackLayout
+                       x:Name="Stack"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="CenterAndExpand"
+                       Spacing="40">
+                    <Image
+                        x:Name="RadarImage"
+                        Source="{AppThemeBinding Light=radar_black.png, Dark=radar_white.png}"
+                        Aspect="AspectFit"
+                        WidthRequest="72"
+                        VerticalOptions="Center"
+                        SemanticProperties.Description="Internet connectivity image"/>
+                    <Label Text="Идёт обновление..."  FontSize="54">
+                        <Label.Shadow>
+                            <Shadow Brush="{AppThemeBinding Light=#000, Dark=#FFF}"
+                                Offset="0,0"
+                                Radius="10"
+                                Opacity="0.3" />
+                        </Label.Shadow>
+                    </Label>
+                </HorizontalStackLayout>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>

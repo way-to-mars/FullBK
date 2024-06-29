@@ -13,12 +13,10 @@ public partial class RewardsPage : ContentPage
 	{
 		InitializeComponent();
 
-        rotation = new Animation(value => 
-            RadarImage.Rotation = value,
-            0,
-            360,
-            Easing.Linear
-            );
+        rotation = new Animation()
+            {
+                { 0, 1, new Animation((x) => RadarImage.Rotation = x, 0, 360, easing: Easing.SinOut) },
+            };
 
         vm = viewModel;
 		BindingContext = viewModel;
@@ -35,11 +33,17 @@ public partial class RewardsPage : ContentPage
     {
         string animName = "rotate";
 
+        var initialBgColor = RefreshIt.BackgroundColor;
+
         if (isRefreshing)
         {
             // ANIMATE
             rotation.Commit(this, animName, 16, 1000, Easing.Linear,
-                (value, flag) => RadarImage.Rotation = 0,
+                (value, flag) =>
+                {
+                    RadarImage.Rotation = 0;
+                    RefreshIt.BackgroundColor = initialBgColor;
+                },
                 () => true
                 );
         }

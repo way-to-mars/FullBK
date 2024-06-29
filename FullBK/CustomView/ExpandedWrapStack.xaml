@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FullBK.CustomView.ExpandedWrapStack"
+             x:Name="component">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Color x:Key="BackgroundColorLight">#DDD</Color>
+            <Color x:Key="BackgroundColorDark">#222</Color>
+            <Color x:Key="HeaderHighlightColorLight">#CCE</Color>
+            <Color x:Key="HeaderHighlightColorDark">#111</Color>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <Frame
+        CornerRadius="10"
+        IsClippedToBounds="True"
+        Padding="0"
+        Margin="20"
+        >
+        <VerticalStackLayout
+            BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}"
+            >
+            <Grid ColumnDefinitions="auto, *, auto" RowDefinitions="auto"
+                  x:Name="HeaderGrid">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup Name="CommonStates">
+                        <VisualState Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Transparent" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource HeaderHighlightColorLight}, Dark={StaticResource HeaderHighlightColorDark}}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <Image Grid.Column="0" x:Name="LeftIcon" Margin="20,5" WidthRequest="20" HeightRequest="20" Aspect="AspectFill"/>
+                <Label Grid.Column="1" x:Name="GroupName" Text="{Binding Title, Source={x:Reference component}}"  VerticalOptions="CenterAndExpand"/>
+                <Image Grid.Column="2" x:Name="RightIcon" Margin="20,5" WidthRequest="20" HeightRequest="20" Aspect="AspectFill"/>
+            </Grid>
+            <FlexLayout Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
+                        x:Name="ItemsHolder"
+                        Padding="50"
+                        Margin="10,10,10,20"
+                        Wrap="Wrap"
+                        JustifyContent="Start"
+                        AlignItems="Start"
+                        AlignContent="Start"                    
+                        HorizontalOptions="FillAndExpand">
+                <!--
+                    <Button Text="A01" FontSize="32" Padding="10,80" Clicked="Button_Clicked" WidthRequest="200" Margin="10"/>
+                    <Button Text="A02" FontSize="32" Padding="10,80" Clicked="Button_Clicked" WidthRequest="200" Margin="10"/>
+                    <Button Text="A03" FontSize="32" Padding="10,80" Clicked="Button_Clicked" WidthRequest="200" Margin="10"/>
+                    <Button Text="A04" FontSize="32" Padding="10,80" Clicked="Button_Clicked" WidthRequest="200" Margin="10"/>
+                -->
+            </FlexLayout>        
+        </VerticalStackLayout>
+    </Frame>
+    
+</ContentView>
