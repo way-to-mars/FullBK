@@ -1,3 +1,4 @@
+using FullBK.Logging;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -41,8 +42,8 @@ public partial class ExpandedWrapStack : ContentView
         // Implement initial state
         SetIcons(IsExpanded);
 
-
-        this.Loaded += ExpandedWrapStack_Loaded;
+        // auto adding and then removing items (buttons)
+        // this.Loaded += ExpandedWrapStack_Loaded;
     }
 
     private void ExpandedWrapStack_Loaded(object? sender, EventArgs e)
@@ -157,19 +158,19 @@ public partial class ExpandedWrapStack : ContentView
 
     private async void Button_Clicked(object? sender, EventArgs e)
     {
-        Button button = (Button)sender;
+        if (sender is Button button)
+        {
+            var a1 = button.FadeTo(0.25, 100);
+            var a2 = button.ScaleTo(1.1, 250);
 
+            await a1;
+            var a3 = button.FadeTo(1, 100);
 
-        var a1 = button.FadeTo(0.25, 100);
-        var a2 = button.ScaleTo(1.1, 250);
+            await a3;
+            var a4 = button.ScaleTo(1, 250);
 
-        await a1;
-        var a3 = button.FadeTo(1, 100);
-
-        await a3;
-        var a4 = button.ScaleTo(1, 250);
-
-        await a4;
+            await a4;
+        }
     }
 
 

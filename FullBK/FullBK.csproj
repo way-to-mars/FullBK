@@ -65,6 +65,8 @@
 	  <None Remove="CustomView\Images\arrow_right_white.svg" />
 	  <None Remove="Resources\Fonts\Better-VCR.ttf" />
 	  <None Remove="Resources\Fonts\empty_prize.png" />
+	  <None Remove="Resources\Fonts\RobotoCondensed-Bold.ttf" />
+	  <None Remove="Resources\Fonts\RobotoCondensed-Regular.ttf" />
 	  <None Remove="Resources\Images\alien.svg" />
 	  <None Remove="Resources\Images\circle_arrow_down.svg" />
 	  <None Remove="Resources\Images\circle_arrow_up.svg" />
@@ -73,10 +75,8 @@
 	  <None Remove="Resources\Images\network_signal_dark.svg" />
 	  <None Remove="Resources\Images\radar_black.svg" />
 	  <None Remove="Resources\Images\radar_white.svg" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiFont Include="Resources\Images\empty_prize.png" />
+	  <None Remove="Services\Images\empty_box.png" />
+	  <None Remove="Services\Images\empty_prize.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -86,6 +86,8 @@
 	  <MauiImage Include="CustomView\Images\arrow_left_white.svg" />
 	  <MauiImage Include="CustomView\Images\arrow_right_black.svg" />
 	  <MauiImage Include="CustomView\Images\arrow_right_white.svg" />
+	  <MauiImage Include="Services\Images\empty_box.png" />
+	  <MauiImage Include="Services\Images\empty_prize.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -93,6 +95,7 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.61" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.61" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Playwright" Version="1.44.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -100,6 +103,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="CustomView\ExpandedWrapStack.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\ContextManagementPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\DailyCalendarPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\GroupingCollectionView.xaml">

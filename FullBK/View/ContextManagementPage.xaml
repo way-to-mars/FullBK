@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FullBK.View.ContextManagementPage"
+             xmlns:viewmodel="clr-namespace:FullBK.ViewModel"
+             x:DataType="viewmodel:ContextManagementViewModel"
+             Title="ContextManagementPage">
+    <Grid RowDefinitions="auto, *">
+        <FlexLayout Grid.Row="0" Padding="5" Margin="5" Wrap="Wrap" JustifyContent="Start" AlignItems="Start" AlignContent="Start" HorizontalOptions="FillAndExpand" >
+            <Button Text="Tanki.su"
+                    Margin="10"
+                    IsEnabled="{Binding IsTankiSuButtonEnabled}"
+                    Command="{Binding TankiSuCommand}"/>
+            <Button Text="Check Authorization"
+                    Margin="10"
+                    IsEnabled="{Binding IsCheckButtonEnabled}"
+                    Command="{Binding CheckAuthorizationCommand}"/>
+            <Button Text="Log in"
+                    Margin="10"
+                    IsEnabled="{Binding IsLoginButtonEnabled}"
+                    Command="{Binding LoginCommand}"/>
+            <Button Text="Log out"
+                    Margin="10"
+                    IsEnabled="{Binding IsLogoutButtonEnabled}"
+                    Command="{Binding LogoutCommand}"/>
+        </FlexLayout>
+        <ScrollView Grid.Row="1" Margin="20" x:Name="Scroller">
+            <VerticalStackLayout x:Name="MsgHolder" Spacing="10">
+                <!-- massages go here -->
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>

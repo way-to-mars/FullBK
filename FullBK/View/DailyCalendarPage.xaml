@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FullBK.View.DailyCalendarPage"
+             xmlns:customs="clr-namespace:FullBK.CustomView"
+             
+             xmlns:model="clr-namespace:FullBK.Model"
+             
+             xmlns:viewmodel="clr-namespace:FullBK.ViewModel"
+             x:DataType="viewmodel:DailyCalendarViewModel">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="GradColLight1">#C0CCCCCC</Color>
+            <Color x:Key="GradColLight2">#C0FFFFFF</Color>
+            <Color x:Key="GradColDark1">#C0303030</Color>
+            <Color x:Key="GradColDark2">#C0000000</Color>
+            <Color x:Key="ToolbarBgLight">#EEEEEE</Color>
+            <Color x:Key="ToolbarBgDark">#303030</Color>
+            <Color x:Key="BackgroundColorLight">#DDD</Color>
+            <Color x:Key="BackgroundColorDark">#222</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <!-- Toolbar -->
+    <Shell.TitleView>
+        <Grid RowDefinitions="*"
+              ColumnDefinitions="Auto,*"
+              VerticalOptions="FillAndExpand"
+              BackgroundColor="{AppThemeBinding Light={StaticResource ToolbarBgLight}, Dark={StaticResource ToolbarBgDark}}">
+            <Label Text="Ежедневный табель-календарь" VerticalOptions="CenterAndExpand" Padding="15,0" FontSize="20" FontFamily="Better-VCR" FontAttributes="Bold"/>
+            <ScrollView Orientation="Horizontal" Grid.Column="1" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" Padding="15,0">
+                <HorizontalStackLayout Spacing="10">
+                    <Button Text="Update"
+                            FontSize="18"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource GradColLight2}, Dark={StaticResource GradColDark2}}"
+                            TextColor="{AppThemeBinding Dark={StaticResource GradColLight2}, Light={StaticResource GradColDark2}}">
+                        <Button.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding RefreshCommand}"/>
+                        </Button.GestureRecognizers>
+                    </Button>
+                    <customs:ConnectivityView/>
+                </HorizontalStackLayout>
+             </ScrollView>
+        </Grid>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <Grid ColumnDefinitions="*" RowDefinitions="*">
+
+            <!-- Base layout -->
+            <Frame
+                CornerRadius="10"
+                IsClippedToBounds="True"
+                Padding="0"
+                Margin="20">
+                <Grid ColumnDefinitions="*" RowDefinitions="auto, auto, *"
+                      BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}"
+                    >
+                    <Label Text="Задачи этого месяца"
+                           FontAttributes="Bold"
+                           FontSize="20"
+                           VerticalOptions="Center" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" HeightRequest="40"/>
+                    <BoxView Grid.Row="1" Color="DarkGray" HeightRequest="3"/>
+                    <ScrollView Grid.Row="2" HorizontalOptions="CenterAndExpand" >
+                        <FlexLayout
+                            x:Name="ItemsHolder"
+                            Padding="50"
+                            Margin="10,10,10,20"
+                            Wrap="Wrap"
+                            JustifyContent="Start"
+                            AlignItems="Start"
+                            AlignContent="Start"  
+                            HorizontalOptions="FillAndExpand"
+                            BindableLayout.ItemsSource="{Binding DailyTasks}">
+
+                            <BindableLayout.EmptyView>
+                                <StackLayout>
+                                    <Label Text="None."
+                                       FontAttributes="Italic"
+                                       FontSize="{StaticResource smallTextSize}" />
+                                    <Label Text="Try harder and return later?"
+                                       FontAttributes="Italic"
+                                       FontSize="{StaticResource smallTextSize}" />
+                                </StackLayout>
+                            </BindableLayout.EmptyView>
+
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="model:DailyTaskSimpleModel">
+                                    <Grid ColumnDefinitions="auto" RowDefinitions="auto">
+                                        <Image Source="{Binding ImageBackground}"
+                                           Aspect="AspectFit"
+                                           Margin="20"
+                                           WidthRequest="160"
+                                           HeightRequest="220"/>
+                                        <VerticalStackLayout HorizontalOptions="FillAndExpand" Padding="0,80,0,0" Spacing="10">
+                                            <Image Source="{Binding ImagePrize}"
+                                               Aspect="AspectFit"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               WidthRequest="80"
+                                               HeightRequest="80"/>
+                                            <Label Text="{Binding Description}"
+                                               FontFamily="RobotoCondensedBold"
+                                               HorizontalOptions="Center"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalOptions="Center"                                               
+                                               WidthRequest="140"/>
+                                            <Label Text="{Binding State}"
+                                               FontFamily="RobotoCondensed"
+                                               FontSize="10"
+                                               HorizontalOptions="Center"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalOptions="Center"                                               
+                                               WidthRequest="140"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+
+                        </FlexLayout>
+                    </ScrollView>
+                </Grid>
+            </Frame>
+
+            <!-- Refreshing indicator -->
+            <Grid ColumnDefinitions="*" RowDefinitions="*"
+                                 x:Name="RefreshIt"
+                                 IsVisible="{Binding IsRefreshing}"
+                                 ZIndex="100"
+                                 VerticalOptions="FillAndExpand"
+                                 HorizontalOptions="FillAndExpand"
+                                 >
+                <Grid.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" >
+                        <GradientStop Color="{AppThemeBinding Light={StaticResource GradColLight2}, Dark={StaticResource GradColDark2}}"
+                          Offset="0.0" />
+                        <GradientStop Color="{AppThemeBinding Light={StaticResource GradColLight1}, Dark={StaticResource GradColDark1}}"
+                          Offset="0.25" />
+                        <GradientStop Color="{AppThemeBinding Light={StaticResource GradColLight2}, Dark={StaticResource GradColDark2}}"
+                          Offset="0.5" />
+                        <GradientStop Color="{AppThemeBinding Light={StaticResource GradColLight1}, Dark={StaticResource GradColDark1}}"
+                          Offset="0.75" />
+                        <GradientStop Color="{AppThemeBinding Light={StaticResource GradColLight2}, Dark={StaticResource GradColDark2}}"
+                          Offset="1.0" />
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <HorizontalStackLayout
+                       x:Name="Stack"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="CenterAndExpand"
+                       Spacing="40">
+                    <Image
+                        x:Name="RadarImage"
+                        Source="{AppThemeBinding Light=radar_black.png, Dark=radar_white.png}"
+                        Aspect="AspectFit"
+                        WidthRequest="72"
+                        VerticalOptions="Center"
+                        SemanticProperties.Description="Internet connectivity image"/>
+                    <Label Text="Идёт обновление..."  FontSize="54">
+                        <Label.Shadow>
+                            <Shadow Brush="{AppThemeBinding Light=#000, Dark=#FFF}"
+                                Offset="0,0"
+                                Radius="10"
+                                Opacity="0.3" />
+                        </Label.Shadow>
+                    </Label>
+                </HorizontalStackLayout>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

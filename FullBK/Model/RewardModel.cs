@@ -8,6 +8,8 @@ public class RewardModel
 
     public RewardStates RewardState { get; set; } = RewardStates.UNKNOWN;
 
+    public string tempString { get; set; } = string.Empty;
+
     public enum RewardStates {
         NEW = 1,
         INPROGRESS = 2,

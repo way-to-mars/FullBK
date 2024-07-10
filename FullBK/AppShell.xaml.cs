@@ -1,4 +1,6 @@
-﻿namespace FullBK;
+﻿using FullBK.Logging;
+
+namespace FullBK;
 
 public partial class AppShell : Shell
 {

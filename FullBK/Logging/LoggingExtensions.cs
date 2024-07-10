@@ -1,7 +1,16 @@
-﻿namespace FullBK.Logging;
+﻿using static FullBK.Logging.FileLogger;
+
+namespace FullBK.Logging;
 
 public static class LoggingExtensions
 {
+    public enum Level {
+        INFO = LogLevel.INFO,
+        WARNING = LogLevel.WARNING,
+        ERROR = LogLevel.ERROR,
+        FATAL = LogLevel.FATAL,
+    }
+
     public static string DebugLn(this string text) {
 #if DEBUG
         System.Diagnostics.Debug.WriteLine(text);  
@@ -15,4 +24,9 @@ public static class LoggingExtensions
         return text;
     }
 
+    public static string LogIt(this string text, Level logLevel = Level.INFO)
+    {
+        WriteLine(text, (FileLogger.LogLevel)logLevel);
+        return text;
+    }
 }

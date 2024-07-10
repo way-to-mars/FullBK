@@ -21,6 +21,20 @@
         Route="RewardsPage" />
     </FlyoutItem>
 
+    <FlyoutItem Title="Ежедневные задачи" Icon="error_red.png">
+        <ShellContent
+        Title="tanki.su/ru/daily-check-in/"
+        ContentTemplate="{DataTemplate view:DailyCalendarPage}"
+        Route="DailyCalendarPage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Контекст" Icon="error_red.png">
+        <ShellContent
+        Title="Browser context"
+        ContentTemplate="{DataTemplate view:ContextManagementPage}"
+        Route="DailyCalendarPage" />
+    </FlyoutItem>
+
     <FlyoutItem Title="Groping Collection View" Icon="error_red.png">
         <ShellContent
         Title="Список с группировкой элементов"
